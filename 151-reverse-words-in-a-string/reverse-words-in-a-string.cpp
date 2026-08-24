@@ -13,7 +13,7 @@ public:
 
         }
 
-        else if(s[i]=' ' && word.empty()==false){
+        else if(s[i]==' ' && word.empty()==false){
             result.push_back(word);
             // basically suppose the input is "the sky is blue" so we don't push into vector everytime we see a nonspace char
             // like here we don't push as soon as we encountered 't' from "the" we only push when

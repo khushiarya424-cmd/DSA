@@ -41,7 +41,7 @@ public:
          string word=s.substr(i+1, end-i);
 
          if(result.empty()==false){
-            result+=" ";
+            result+=' ';
          }
          result+=word;
 

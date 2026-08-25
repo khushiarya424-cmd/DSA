@@ -21,7 +21,7 @@ public:
         OddIndex=i;
         int start=0;
 
-          while(start<=OddIndex && num[start]==0){
+          while(start<=OddIndex && num[start]=='0'){
 
             start++;
             

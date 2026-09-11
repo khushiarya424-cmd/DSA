@@ -19,7 +19,7 @@ public:
 
             if(nums[r]%2!=0){
 
-                // nums[l] odd number hai agar
+                // nums[r] odd number hai agar
                 odd_digits++;
             }
             if(odd_digits>k){

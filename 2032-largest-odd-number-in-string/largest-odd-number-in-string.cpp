@@ -1,42 +1,35 @@
 class Solution {
 public:
     string largestOddNumber(string num) {
+    
+    int i=num.size()-1;
+    int index=-1;
+    while(i>=0 && (num[i]-'0')%2==0){
+        i--;
+    }
 
-        
-         int OddIndex=-1;
-         string ans="";
-         int i=num.size()-1;
-        while(i>=0 && (num[i]-'0')%2==0){
+    index=i;
 
-            // first we skip even numbers from the back 
-           i--;
-           
 
-        }
+    string res="";
+  if(index<0){
 
-        if(i<0){
-            return ans;
-        }
+    return "";
 
-        OddIndex=i;
-        int start=0;
+  }
 
-          while(start<=OddIndex && num[start]=='0'){
+  for(i=0; i<=index; i++){
+    res+=num[i];
+  }
 
-            start++;
-            
-            //now we try to ensure for leading zeroes like if input is 01235
-            // then output should be 1235 so our answer must not include leading zeroes
-           // so what we are doing basically is we iterate from start 0 till our OddDigit
-           // if it finds any leading zeroes it does start++ and if no leading zeroes then it exits this loop
-           // and return the desired substring 
+  return res;
 
-        }
-        ans=num.substr(start, OddIndex-start+1);
-        return ans;
 
-            
-        
+
+
+
+
+
         
     }
 };

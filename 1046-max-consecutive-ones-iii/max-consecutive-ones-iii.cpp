@@ -1,49 +1,29 @@
 class Solution {
 public:
     int longestOnes(vector<int>& nums, int k) {
+        int left=0;
+        int maxi=0;
+        int count_zero=0;
+
         
-        int l=0;
-        int r=0;
 
-        int countzeroes=0;
+        for(int right=0; right<nums.size(); right++){
 
-        int maxlen=0;
+            if(nums[right]==0){
+                count_zero++;
 
-        while(r<nums.size()){
-          
-          if(nums[r]==0){
-            countzeroes++;
-          }
-          if(countzeroes<=k){
-            int len=r-l+1;
-
-            maxlen=max(maxlen, len);
-
-            r++;
-          }
-
-          if(countzeroes>k){
-            
-            while(countzeroes>k){
-            if(nums[l] == 0){
-                countzeroes--;
             }
-            l++;
 
-            // basically what we are doing here is that when we reach a point where countzeroes>k so what we do is
-            // we keep shrinking till once again our window becomes valid i.e. 
-            // a valid windo means substring with 'k' zeroes as per given in input parameter
-
-            // basically look at this [1, 1, 1, 0, 0, 0] now here at r=5 you encounter countzeroes>k because k=2 was given
-            // so what you do is you keep shrinking that is moving l++ till countzeroes becomes once again <=k
-            // so now here in the given condition your l=0 and r=5 here you get coountzeroes'3'
-
-        
-          }
-          r++;
-          }
-            
+            while(count_zero>k && left<=right){
+                if(nums[left]==0){
+                    count_zero--;
+                }
+                left++;
+            }
+            if(count_zero<=k){
+              maxi=max(maxi,right-left+1);
+            }
         }
-        return maxlen;
+        return maxi;
     }
 };

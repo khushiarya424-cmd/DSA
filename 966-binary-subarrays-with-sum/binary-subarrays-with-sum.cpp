@@ -1,48 +1,29 @@
 class Solution {
 public:
     int numSubarraysWithSum(vector<int>& nums, int goal) {
-        return subarray_sum_atMost(nums, goal)- subarray_sum_atMost(nums, goal-1);
-    }
+     
+        int count_of_ops=0;
 
-    
-    int subarray_sum_atMost(vector<int>& nums, int goal) {
-
-        int l=0;
-        int r=0;
+        unordered_map<int,int>mpp;
+        mpp[0]=1;
 
         int sum=0;
 
-        int count=0;  //count of subarrays
+        for(int i=0; i<nums.size(); i++){
+              
+              //prefix sum with freq in map
+              sum+=nums[i];
 
-        if(goal<0){
-            return 0;
+              
+              int need=sum-goal;
+
+              if(mpp.find(need)!=mpp.end()){
+                count_of_ops=count_of_ops+mpp[need];
+              }
+              mpp[sum]++;
         }
 
-        // [1, 0, 1, 0, 1]
+        return count_of_ops;
 
-
-        while(r<nums.size()){
-
-            sum+=nums[r];
-
-            while(sum>goal){
-                //shrink
-
-                sum=sum-nums[l];
-                l=l+1;
-            }
-
-            count=count+(r-l+1);
-            // count gives us the number of possible subarrays in that range of l and r window
-
-            r++;
-
-
-        }
-
-        return count;
     }
-    
-
-  
 };

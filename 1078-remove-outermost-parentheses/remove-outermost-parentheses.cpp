@@ -1,27 +1,31 @@
 class Solution {
 public:
     string removeOuterParentheses(string s) {
-        int count=0;
-        int start=0;
-        string ans="";
-        // new string created for storing purpose
-        for(int i=0;i<s.size();i++){
-            if(s[i]=='('){
-                count++;
-            }
-            else{
-                count--;
-            }
-            if(count==0){
-                //inner-loop
-                for(int j=start+1;j<=i-1;j++){
-                    ans+=s[j];
-                }
-                start=i+1;
-                // moving towards finding new primitive if there is any
-            }
+        // primitiive means string is 1. Non empty 2. cannot be split e.g. (()) is primitive
+        // e.g. ()() is Non primitive
+
+     int count=0;
+     int start=0;
+     
+     string res="";
+
+     for(int i=0; i<s.size(); i++){
+
+        if(s[i]=='('){
+            count++;
         }
-        return ans;
-        
+        if(s[i]==')'){
+            count--;
+        }
+        if(count==0){
+            // means we've reached end of one pair or maybe reached end of full s
+           for(int j=start+1; j<i; j++){
+                 res+=s[j];
+           }
+           start=i+1;
+
+        }
+     }
+     return res; 
     }
 };

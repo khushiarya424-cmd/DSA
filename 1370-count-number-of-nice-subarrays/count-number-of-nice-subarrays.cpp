@@ -1,45 +1,38 @@
 class Solution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
-
-        return atmostK_odd(nums, k) - atmostK_odd(nums, k-1);
-        
+           return AtMost(nums,k)-AtMost(nums,k-1);
     }
 
-    int atmostK_odd(vector<int>& nums, int k){
-        int l=0;
+    int AtMost(vector<int>& nums, int k){
+         
+         int left=0;
+         int count=0; //ans
+         int count_of_odd=0;
+         for(int right=0; right<nums.size(); right++){
+              
+           //for e.g. if k=2 so first we find subarrays that have 2 odd numbers and then we find subarrays with 1 odd number
+           // and then subtract it 
 
-        int r=0;
+           if(nums[right]%2!=0){
+            count_of_odd++;
+           }
+           while(count_of_odd>k && left<right){
 
-        int odd_digits=0;
-
-        int count=0;
-
-        while(r<nums.size()){
-
-            if(nums[r]%2!=0){
-
-                // nums[r] odd number hai agar
-                odd_digits++;
+            if(nums[left]%2!=0){
+                count_of_odd--;
             }
-            if(odd_digits>k){
-                while(odd_digits>k){
-                    if(nums[l]%2!=0){
-                        odd_digits--;
-                    }
-                    l++;
-                }
-            }
+            left++;
+              
+           }
 
-            if(odd_digits<=k){
-                count=count+(r-l+1);
-            }
-
-            r++;
-
-
-        }
-
-        return count;
+           if(count_of_odd<=k && left<=right){
+               
+                count=count+(right-left+1);
+           }
+               
+         }
+         return count;
+         
     }
 };

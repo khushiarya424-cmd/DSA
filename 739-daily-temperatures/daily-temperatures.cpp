@@ -4,11 +4,11 @@ public:
         stack<int>st;
         int n=temperatures.size();
         vector<int>ans(n);
-        
+        int days=0;
 
         for(int i=n-1; i>=0; i--){
 
-            int days=0;
+            
 
              while(st.empty()==false && temperatures[i]>=temperatures[st.top()] ){
                 st.pop();

@@ -1,78 +1,54 @@
 class Solution {
 public:
     string removeKdigits(string num, int k) {
-         
-         stack<char>st;
+        int count=1;
 
-         int n=num.size();
+        stack<char>st;
 
-         for(int i=0;i<n; i++){
+        int n=num.size();
 
-            while(st.empty()==false && k>0 && (st.top()-'0')>num[i]-'0'){
+        for(int i=0; i<n; i++){
 
-                st.pop();
-                k=k-1;
+            while(st.empty()==false && count<=k && num[i]-'0'<st.top()-'0'){
+                  st.pop();
+                  count++;
             }
+
             st.push(num[i]);
+        }
 
-         }
-
-         //now even after traversal if k is still not zero
-
-         while(k>0){
+        while(count<=k && st.empty()==false){
             st.pop();
-            k=k-1;
-         }
+            count++;
+        }
 
-         //check if stack is empty
-
-         if(st.empty()==true){
-
-            return "0";
-
-         }
-
-         //for other cases
-
-         string result="";
-
-         while(st.empty()==false){
-
-            //put elements from stack to string
-
-            result.push_back(st.top());
-            st.pop();
-
-         }
-
-         reverse(result.begin(), result.end());
-
-         int start=0;
-
-         while(start<result.size() && result[start]=='0'){
-
-            start++;
-
-         }
-
-         int string_size=result.size();
-
-
-        if(start==result.size()){
+        if(st.empty()==true){
             return "0";
         }
-     
-         string answer=result.substr(start, string_size-start);
-         
-         
+        string ans="";
 
-         if(result.empty()==true){
-            return "0";
-         }
+        int n2=st.size();
 
-         return answer;
-         
+        while(n2!=0){
+            ans+=st.top();
+            st.pop();
+            n2--;
+        }
 
-        
+        reverse(ans.begin(), ans.end());
+        //before--> 0020 after--> 0200
+
+        int j=0;
+
+        while(j<ans.size()-1 && ans[j]=='0'){
+            j++;
+        }
+        int start=j;
+        string res="";
+
+        for(int i=start; i<ans.size(); i++){
+            res+=ans[i];
+        }
+        return res;
     }
 };

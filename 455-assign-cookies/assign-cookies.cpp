@@ -11,10 +11,9 @@ public:
                if(i<g.size() && g[i]<=s[j]){
                   count++;
                   i++;
-                 
+                  
                }
-                j++;
-              
+              j++;
          }
          return count;
 

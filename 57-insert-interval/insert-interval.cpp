@@ -2,43 +2,33 @@ class Solution {
 public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
         
-         vector<vector<int>>res;
+        //result
+        vector<vector<int>>ans;
 
-         int i=0;
-         int n=intervals.size();
+        int newStart=newInterval[0];    // [4,8] -->4
+        int newEnd=newInterval[1];    //[4,8] -->8
 
-         while(i<n && intervals[i][1]<newInterval[0]){
+        int i=0;
+       int n=intervals.size();
+        while(i<n && newStart> intervals[i][1]){
+            ans.push_back(intervals[i]);
+            i++;    //before overlapping part
+        }
+        while(i<n && intervals[i][0]<=newEnd){
+                 newStart=min(intervals[i][0], newStart);   //during overlapping phase
+                 newEnd=max(intervals[i][1], newEnd);
+                 i++;
+        }
+        ans.push_back({newStart, newEnd});
 
-            // occuring completely before my new interval so simply add them
+        //after overlapping phase
 
-            res.push_back(intervals[i]);
+        while(i<n){
+            ans.push_back(intervals[i]);
             i++;
+        }
 
-         }
-         
-         //now comes the overlapping section
-
-         while(i<n && intervals[i][0]<=newInterval[1] ){
-
-            newInterval[0]=min(intervals[i][0], newInterval[0]);
-
-            newInterval[1]=max(intervals[i][1], newInterval[1]);
-
-            i++;
-         }
-          
-          //merging the new onw
-         res.push_back(newInterval);
-
-         //now inserting the intervals that occur after it
-
-         while(i<n){
-
-            res.push_back(intervals[i]);
-            i++;
-         }
-
-         return res;
+        return ans;
 
 
     }

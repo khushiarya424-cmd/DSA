@@ -25,9 +25,10 @@ public:
            if(l<=r && mpp.size()<=2){
              maxi=max(maxi, r-l+1);
            }
-
-        //    mpp[fruits[r]]++;
-
+       
+       
+       
+           
            r++;
 
         }

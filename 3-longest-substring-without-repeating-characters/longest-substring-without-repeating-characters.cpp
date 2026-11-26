@@ -1,33 +1,39 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-      
-        int l=0;
-        int r=0;
-        int maxlen=0;
+         
+          //abcabcbb
+          int l=0;
+          int r=0;
+          int maxlen=0;
 
-        int hash[256]={0};
+          unordered_map<char, int>mpp;
+          
 
-        while(r<s.size()){
+          while(r<s.size()){
+             
+             if(mpp.find(s[r])!=mpp.end()){
 
-            hash[s[r]]++;   //insert
+                //abca if 'a' already exists in map
+                while(l<=r && mpp.find(s[r])!=mpp.end()){
+                       
+                        
+                            mpp[s[l]]--;
 
-            if(hash[s[r]]>1){
+                            if(mpp[s[l]]<=0){
+                                mpp.erase(s[l]);
+                            }
+                        
+                        l++;
+                }      
+             }
 
-                while(l<r && hash[s[r]]>1){
-
-                  hash[s[l]]--;
-                    
-                    l++;
-                }
-
-            }
-            
-            maxlen=max(maxlen, r-l+1);
-
-            r++;
-
-        }
-        return maxlen;
+              maxlen=max(maxlen, r-l+1);
+                mpp[s[r]]++;
+                r++;
+              
+              
+          }
+          return maxlen;
     }
 };
